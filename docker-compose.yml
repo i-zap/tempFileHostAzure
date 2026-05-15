@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    container_name: tempshare-backend
+    restart: always
+    env_file: .env
+    expose:
+      - "8000"
+
+  nginx:
+    build: ./nginx
+    container_name: tempshare-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+  cleaner:
+    build: ./function-cleaner
+    container_name: tempshare-cleaner
+    restart: always
+    env_file: .env

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download | temp-share</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-slate-900">
+    <div class="flex flex-col items-center justify-center min-h-screen p-6">
+        <div id="main-card" class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-8 space-y-8">
+            
+            <!-- Loading State -->
+            <div id="loading-state" class="flex flex-col items-center py-10 space-y-4">
+                <div class="w-12 h-12 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
+                <p class="text-slate-400 font-bold animate-pulse">Fetching file details...</p>
+            </div>
+
+            <!-- Error State (Hidden) -->
+            <div id="error-state" class="hidden flex flex-col items-center text-center space-y-4 py-6">
+                <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-2xl text-red-500"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800">File Unavailable</h2>
+                    <p id="error-message" class="text-slate-500 mt-2">The file may have expired or been deleted.</p>
+                </div>
+                <a href="/" class="text-blue-600 font-bold hover:underline pt-4">Go to Upload Portal</a>
+            </div>
+
+            <!-- Content State (Hidden) -->
+            <div id="content-state" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="text-center">
+                    <h1 class="text-2xl font-bold text-slate-800">Ready to Download</h1>
+                </div>
+
+                <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100 flex items-center gap-4">
+                    <div class="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                        <i class="fas fa-file-alt text-xl"></i>
+                    </div>
+                    <div class="flex-1 overflow-hidden text-left">
+                        <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">File Name</p>
+                        <p id="file-name" class="text-slate-800 font-bold truncate text-lg"></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 text-slate-500 bg-slate-50 py-3 rounded-xl border border-slate-100">
+                    <i class="far fa-clock text-sm"></i>
+                    <p class="text-sm font-medium">Expires: <span id="expiry-time" class="font-bold text-slate-700"></span></p>
+                </div>
+
+                <a id="download-btn" href="#" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all">
+                    <i class="fas fa-download"></i> Download File
+                </a>
+
+                <p class="text-xs text-center text-slate-400 font-medium px-4">
+                    This file is shared anonymously. Once it expires, it will be wiped from our servers forever.
+                </p>
+            </div>
+        </div>
+
+        <p class="mt-8 text-slate-400 text-sm font-medium">
+            Powered by <span class="text-slate-600">temp-share</span>
+        </p>
+    </div>
+
+    <script src="/download.js"></script>
+</body>
+</html>
