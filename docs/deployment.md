@@ -23,7 +23,7 @@
    ```env
    AZURE_STORAGE_CONNECTION_STRING="your_connection_string"
    CONTAINER_NAME="tempfiles"
-   BASE_DOMAIN="upload.izap.fun"
+   BASE_URL="http://upload.izap.fun"
    ```
 3. **Launch**:
    ```bash

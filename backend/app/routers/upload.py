@@ -35,7 +35,9 @@ async def upload_file(
     )
     
     # Generate share link
-    share_url = f"https://{settings.BASE_DOMAIN}/d/{blob_name}"
+    # BASE_URL is expected to include protocol (e.g., http://3.108.190.168)
+    base_url = settings.BASE_URL.rstrip('/')
+    share_url = f"{base_url}/d/{blob_name}"
     
     # Generate QR Code
     qr = qrcode.QRCode(version=1, box_size=10, border=5)
