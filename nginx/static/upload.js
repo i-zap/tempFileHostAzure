@@ -109,7 +109,8 @@ function resetUpload() {
 
 copyBtn.addEventListener('click', () => {
     const link = shareLinkDisplay.textContent;
-    navigator.clipboard.writeText(link).then(() => {
+    
+    const onSuccess = () => {
         const icon = copyBtn.querySelector('i');
         icon.classList.replace('far', 'fas');
         icon.classList.replace('fa-copy', 'fa-check');
@@ -120,5 +121,33 @@ copyBtn.addEventListener('click', () => {
             icon.classList.replace('fa-check', 'fa-copy');
             icon.classList.remove('text-green-500');
         }, 2000);
-    });
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(onSuccess).catch(err => {
+            console.error('Clipboard write failed', err);
+            fallbackCopy(link, onSuccess);
+        });
+    } else {
+        fallbackCopy(link, onSuccess);
+    }
 });
+
+function fallbackCopy(text, callback) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    // Ensure the textarea is not visible
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    textArea.style.top = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        const successful = document.execCommand('copy');
+        if (successful && callback) callback();
+    } catch (err) {
+        console.error('Fallback copy failed', err);
+    }
+    document.body.removeChild(textArea);
+}
