@@ -1,5 +1,5 @@
 import datetime
-from azure.storage.blob import BlobServiceClient, generate_blob_sas, BlobSasPermissions
+from azure.storage.blob import BlobServiceClient, generate_blob_sas, BlobSasPermissions, ContentSettings
 from ..config import settings
 
 class AzureBlobService:
@@ -25,7 +25,7 @@ class AzureBlobService:
         blob_client.upload_blob(
             data, 
             overwrite=True, 
-            content_settings={"content_type": content_type},
+            content_settings=ContentSettings(content_type=content_type),
             metadata=metadata
         )
         return file_name
