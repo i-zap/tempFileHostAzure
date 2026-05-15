@@ -22,6 +22,10 @@ async def upload_file(
     # Read file content
     content = await file.read()
     
+    # 2. Size Validation (FastAPI layer)
+    if len(content) > settings.MAX_FILE_SIZE_BYTES:
+        raise HTTPException(status_code=413, detail="File too large. Max 1MB allowed.")
+    
     # Upload to Azure
     # We keep the original extension if possible
     ext = file.filename.split('.')[-1] if '.' in file.filename else ''
