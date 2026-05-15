@@ -31,7 +31,8 @@ async def upload_file(
         blob_name, 
         content, 
         file.content_type, 
-        expiry_mins
+        expiry_mins,
+        file.filename
     )
     
     # Generate share link
